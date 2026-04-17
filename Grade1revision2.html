@@ -1,0 +1,1554 @@
+<!DOCTYPE html>
+<!-- saved from url=(0079)file:///C:/Users/pierr/Downloads/Grade1_Revision2_Balmoral_April2026%20(1).html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Revision Time with Miss Numby!</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800;900&display=swap');
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+html,body{
+  font-family:'Nunito',sans-serif;
+  min-height:100vh;
+  overflow-x:hidden;
+}
+
+body{
+  background: linear-gradient(170deg, #1565C0 0%, #42A5F5 30%, #64B5F6 50%, #90CAF9 70%, #BBDEFB 100%);
+  display:flex;flex-direction:column;align-items:center;
+  padding:10px 8px 30px;
+  position:relative;
+}
+
+/* ── FLOATING DECORATIONS ── */
+.float-deco{
+  position:fixed;pointer-events:none;opacity:0.08;
+  font-size:clamp(28px,6vw,55px);z-index:0;
+  animation: floatAround 18s ease-in-out infinite;
+}
+@keyframes floatAround{
+  0%,100%{transform:translateY(0) rotate(0deg)}
+  25%{transform:translateY(-20px) rotate(8deg)}
+  50%{transform:translateY(5px) rotate(-5deg)}
+  75%{transform:translateY(-12px) rotate(3deg)}
+}
+
+/* ── MAIN CONTAINER ── */
+#app{
+  width:100%;max-width:700px;
+  position:relative;z-index:1;
+}
+
+/* ── HEADER ── */
+.header{
+  background:linear-gradient(135deg,#FFD54F,#FFB300);
+  border-radius:20px;padding:14px 20px;
+  margin-bottom:14px;text-align:center;
+  box-shadow:0 6px 28px rgba(255,179,0,0.4);
+}
+.header h1{
+  font-family:'Fredoka One',cursive;
+  font-size:clamp(18px,4vw,28px);
+  color:#1565C0;
+  text-shadow:1px 1px 0 rgba(255,255,255,0.5);
+}
+.header p{
+  font-size:clamp(11px,2vw,14px);
+  color:#4E342E;font-weight:700;margin-top:4px;
+}
+
+/* ── PROGRESS BAR ── */
+.progress-wrap{
+  height:10px;background:rgba(255,255,255,0.3);
+  border-radius:50px;margin:10px 0 14px;overflow:hidden;
+}
+.progress-bar{
+  height:100%;background:linear-gradient(90deg,#FFD54F,#FF8F00);
+  border-radius:50px;transition:width 0.8s ease;width:0%;
+}
+
+/* ── SPEECH BUBBLE ── */
+.speech-area{
+  background:linear-gradient(135deg,#FFF8E1,#FFF3C4);
+  border:3px solid #FFD54F;
+  border-radius:8px 20px 20px 20px;
+  padding:16px 20px;margin-bottom:14px;
+  min-height:70px;
+  box-shadow:0 4px 16px rgba(255,213,79,0.3);
+}
+.speech-label{
+  font-family:'Fredoka One',cursive;
+  font-size:12px;color:#FF8F00;margin-bottom:6px;
+  display:flex;align-items:center;gap:6px;
+}
+.speech-text{
+  font-size:clamp(14px,2.2vw,17px);
+  color:#3E2723;font-weight:700;line-height:1.7;
+}
+
+/* ── ACTIVITY CARD ── */
+.activity-card{
+  background:rgba(255,255,255,0.95);
+  border-radius:20px;padding:20px;
+  box-shadow:0 8px 32px rgba(21,101,192,0.15);
+  margin-bottom:14px;
+}
+.activity-title{
+  font-family:'Fredoka One',cursive;
+  font-size:clamp(15px,2.8vw,22px);
+  color:#1565C0;margin-bottom:16px;
+  text-align:center;
+  padding:8px 16px;
+  background:linear-gradient(135deg,#E3F2FD,#BBDEFB);
+  border-radius:12px;
+}
+
+/* ── NUMBER ROWS (type-in) ── */
+.num-row{
+  display:flex;align-items:center;gap:10px;
+  margin-bottom:12px;padding:8px 12px;
+  background:#F5F5F5;border-radius:14px;
+  transition:background 0.3s;
+}
+.num-row.answered-correct{background:linear-gradient(135deg,#E8F5E9,#C8E6C9)}
+.num-row.answered-wrong{background:linear-gradient(135deg,#FFEBEE,#FFCDD2)}
+
+.num-display{
+  font-family:'Fredoka One',cursive;
+  font-size:clamp(26px,5vw,38px);
+  color:#1565C0;min-width:45px;text-align:center;
+}
+.arrow-label{
+  font-family:'Fredoka One',cursive;
+  font-size:clamp(14px,2.2vw,18px);
+  color:#FF8F00;
+}
+.answer-box{
+  width:clamp(50px,12vw,70px);height:clamp(50px,12vw,70px);
+  border:3px dashed #90CAF9;border-radius:14px;
+  font-family:'Fredoka One',cursive;
+  font-size:clamp(24px,4.5vw,34px);
+  text-align:center;color:#1565C0;
+  background:white;outline:none;
+  transition:border-color 0.3s, background 0.3s, transform 0.3s;
+}
+.answer-box:focus{border-color:#FFB300;background:#FFFDE7;transform:scale(1.05)}
+.answer-box.correct{
+  border-color:#43A047;background:#E8F5E9;color:#2E7D32;
+  animation:popCorrect 0.4s ease;
+}
+.answer-box.wrong{
+  border-color:#E53935;background:#FFEBEE;color:#C62828;
+  animation:popWrong 0.4s ease;
+}
+.answer-box:disabled{opacity:0.9}
+
+/* Remove number input spinners */
+.answer-box::-webkit-outer-spin-button,
+.answer-box::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.answer-box[type=number]{-moz-appearance:textfield}
+
+.go-btn{
+  width:clamp(40px,10vw,50px);height:clamp(40px,10vw,50px);
+  border:none;border-radius:12px;
+  background:linear-gradient(135deg,#43A047,#66BB6A);
+  color:white;font-family:'Fredoka One',cursive;
+  font-size:clamp(14px,3vw,18px);cursor:pointer;
+  box-shadow:0 3px 10px rgba(67,160,71,0.3);
+  transition:transform 0.15s;flex-shrink:0;
+}
+.go-btn:hover{transform:scale(1.08)}
+.go-btn:disabled{opacity:0.3;cursor:default;transform:none}
+
+@keyframes popCorrect{
+  0%{transform:scale(1)}50%{transform:scale(1.15)}100%{transform:scale(1)}
+}
+@keyframes popWrong{
+  0%{transform:scale(1)}25%{transform:translateX(-5px)}50%{transform:translateX(5px)}75%{transform:translateX(-3px)}100%{transform:scale(1)}
+}
+
+/* ── ORDERING SECTION ── */
+.order-source{
+  display:flex;gap:10px;justify-content:center;
+  flex-wrap:wrap;margin-bottom:16px;
+}
+.order-tile{
+  width:clamp(50px,13vw,68px);height:clamp(50px,13vw,68px);
+  border-radius:14px;display:flex;align-items:center;justify-content:center;
+  font-family:'Fredoka One',cursive;font-size:clamp(24px,5vw,34px);
+  color:white;cursor:pointer;position:relative;
+  transition:transform 0.2s,opacity 0.3s;
+  box-shadow:0 4px 14px rgba(0,0,0,0.2);
+  user-select:none;-webkit-user-select:none;
+  -webkit-tap-highlight-color:transparent;
+}
+.order-tile:active{transform:scale(0.92)}
+.order-tile.used{
+  opacity:0.4;cursor:default;
+  text-decoration:line-through;
+}
+.order-tile.used::after{
+  content:'';position:absolute;top:50%;left:8%;right:8%;
+  height:3px;background:rgba(0,0,0,0.5);
+  transform:rotate(-10deg);border-radius:2px;
+}
+
+.tile-c0{background:linear-gradient(135deg,#E53935,#EF5350)}
+.tile-c1{background:linear-gradient(135deg,#8E24AA,#AB47BC)}
+.tile-c2{background:linear-gradient(135deg,#FB8C00,#FFA726)}
+.tile-c3{background:linear-gradient(135deg,#43A047,#66BB6A)}
+.tile-c4{background:linear-gradient(135deg,#1E88E5,#42A5F5)}
+
+.order-boxes{
+  display:flex;gap:10px;justify-content:center;
+  flex-wrap:wrap;margin-bottom:16px;
+}
+.order-box{
+  width:clamp(50px,13vw,68px);height:clamp(50px,13vw,68px);
+  border:3px dashed #90CAF9;border-radius:14px;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Fredoka One',cursive;font-size:clamp(22px,4.5vw,32px);
+  color:#1565C0;background:white;
+  transition:border-color 0.3s, background 0.3s;
+}
+.order-box.filled{border-style:solid;border-color:#1565C0;background:#E3F2FD}
+.order-box.correct-order{border-color:#43A047;background:#E8F5E9;color:#2E7D32}
+.order-box.wrong-order{border-color:#E53935;background:#FFEBEE;color:#C62828}
+
+.check-btn{
+  display:block;margin:0 auto;
+  padding:12px 36px;border:none;border-radius:50px;
+  font-family:'Fredoka One',cursive;font-size:clamp(15px,2.5vw,20px);
+  color:white;cursor:pointer;
+  background:linear-gradient(135deg,#43A047,#66BB6A);
+  box-shadow:0 4px 16px rgba(67,160,71,0.4);
+  transition:transform 0.2s,box-shadow 0.2s;
+}
+.check-btn:hover{transform:scale(1.05);box-shadow:0 6px 22px rgba(67,160,71,0.5)}
+.check-btn:active{transform:scale(0.95)}
+.check-btn:disabled{opacity:0.5;cursor:default;transform:none}
+
+.undo-btn{
+  display:block;margin:8px auto 0;
+  padding:8px 24px;border:2px solid #90CAF9;border-radius:50px;
+  font-family:'Fredoka One',cursive;font-size:clamp(12px,2vw,15px);
+  color:#1565C0;cursor:pointer;background:white;
+  transition:transform 0.2s;
+}
+.undo-btn:hover{transform:scale(1.05);background:#E3F2FD}
+
+/* ── SECTION DIVIDER ── */
+.section-divider{
+  display:flex;align-items:center;gap:12px;
+  margin:18px 0;
+}
+.section-divider::before,.section-divider::after{
+  content:'';flex:1;height:2px;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.5),transparent);
+}
+.section-divider span{
+  font-family:'Fredoka One',cursive;font-size:22px;
+}
+
+/* ── RESULTS SCREEN ── */
+.results-card{
+  background:rgba(255,255,255,0.97);
+  border-radius:20px;padding:24px;
+  box-shadow:0 8px 32px rgba(21,101,192,0.15);
+  text-align:center;
+}
+.results-card h2{
+  font-family:'Fredoka One',cursive;
+  font-size:clamp(20px,4vw,28px);
+  color:#1565C0;margin-bottom:12px;
+}
+.score-display{
+  font-family:'Fredoka One',cursive;
+  font-size:clamp(36px,8vw,56px);
+  color:#FF8F00;margin:16px 0;
+}
+.results-detail{
+  text-align:left;margin:16px 0;
+  font-size:clamp(13px,2vw,16px);
+  font-weight:700;color:#4E342E;line-height:1.8;
+}
+.result-correct{color:#2E7D32}
+.result-wrong{color:#C62828}
+
+/* ── START SCREEN ── */
+.start-screen{
+  text-align:center;padding:30px 20px;
+}
+.start-btn{
+  display:inline-block;margin-top:20px;
+  padding:16px 48px;border:none;border-radius:50px;
+  font-family:'Fredoka One',cursive;font-size:clamp(18px,3.5vw,24px);
+  color:#1565C0;cursor:pointer;
+  background:linear-gradient(135deg,#FFD54F,#FFB300);
+  box-shadow:0 6px 24px rgba(255,179,0,0.5);
+  transition:transform 0.2s;
+  animation:pulse 2s ease-in-out infinite;
+}
+.start-btn:hover{transform:scale(1.08)}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.04)}}
+
+/* ── SCENE MANAGEMENT ── */
+.scene{display:none}
+.scene.active{display:block}
+
+/* ── CONFETTI ── */
+.confetti-wrap{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999;overflow:hidden}
+.cp{position:absolute;animation:confFall linear forwards}
+@keyframes confFall{
+  0%{transform:translateY(-20px) rotate(0deg);opacity:1}
+  100%{transform:translateY(105vh) rotate(720deg);opacity:0}
+}
+
+/* ── PASSWORD SCREEN ── */
+#passwordScreen{
+  position:fixed;top:0;left:0;width:100%;height:100%;
+  background:linear-gradient(170deg, #1565C0 0%, #42A5F5 30%, #64B5F6 50%, #90CAF9 70%, #BBDEFB 100%);
+  display:flex;align-items:center;justify-content:center;z-index:9999;
+}
+.pw-card{
+  background:rgba(255,255,255,0.97);border-radius:24px;padding:36px 28px;
+  max-width:380px;width:90%;text-align:center;
+  box-shadow:0 12px 40px rgba(21,101,192,0.3);
+}
+.pw-card h2{font-family:'Fredoka One',cursive;color:#1565C0;font-size:22px;margin-bottom:6px}
+.pw-card p{font-weight:700;color:#5D4037;font-size:14px;margin-bottom:18px}
+.pw-input{
+  width:80%;padding:14px;border:3px solid #90CAF9;border-radius:14px;
+  font-family:'Fredoka One',cursive;font-size:22px;text-align:center;
+  color:#1565C0;outline:none;transition:border-color 0.3s;
+}
+.pw-input:focus{border-color:#FFB300}
+.pw-btn{
+  display:block;margin:16px auto 0;padding:12px 40px;border:none;border-radius:50px;
+  font-family:'Fredoka One',cursive;font-size:18px;color:white;cursor:pointer;
+  background:linear-gradient(135deg,#43A047,#66BB6A);
+  box-shadow:0 4px 16px rgba(67,160,71,0.4);transition:transform 0.2s;
+}
+.pw-btn:hover{transform:scale(1.05)}
+.pw-error{color:#E53935;font-weight:800;font-size:13px;margin-top:10px;min-height:20px}
+
+/* ── FEEDBACK FORM ── */
+.feedback-card{
+  background:rgba(255,255,255,0.97);border-radius:20px;padding:24px;
+  box-shadow:0 8px 32px rgba(21,101,192,0.15);margin-top:14px;
+}
+.feedback-card h3{font-family:'Fredoka One',cursive;color:#1565C0;font-size:18px;margin-bottom:14px;text-align:center}
+.fb-group{margin-bottom:14px}
+.fb-label{font-weight:800;color:#5D4037;font-size:13px;display:block;margin-bottom:4px}
+.fb-input,.fb-select,.fb-textarea{
+  width:100%;padding:10px 14px;border:2px solid #90CAF9;border-radius:10px;
+  font-family:'Nunito',sans-serif;font-size:14px;font-weight:700;
+  color:#333;outline:none;transition:border-color 0.3s;
+}
+.fb-input:focus,.fb-select:focus,.fb-textarea:focus{border-color:#FFB300}
+.fb-textarea{height:70px;resize:vertical}
+.fb-stars{display:flex;gap:6px;font-size:28px;cursor:pointer}
+.fb-stars span{opacity:0.3;transition:opacity 0.2s}
+.fb-stars span.active{opacity:1}
+.fb-submit{
+  display:block;margin:16px auto 0;padding:12px 40px;border:none;border-radius:50px;
+  font-family:'Fredoka One',cursive;font-size:16px;color:white;cursor:pointer;
+  background:linear-gradient(135deg,#FF8F00,#FFB300);
+  box-shadow:0 4px 16px rgba(255,179,0,0.4);transition:transform 0.2s;
+}
+.fb-submit:hover{transform:scale(1.05)}
+.fb-success{text-align:center;color:#2E7D32;font-weight:800;font-size:14px;padding:20px;display:none}
+
+/* ── HIDE THINGS ── */
+.hidden{display:none!important}
+</style>
+<style>.driver-active .driver-overlay,.driver-active *{pointer-events:none}.driver-active .driver-active-element,.driver-active .driver-active-element *,.driver-popover,.driver-popover *{pointer-events:auto}@keyframes animate-fade-in{0%{opacity:0}to{opacity:1}}.driver-fade .driver-overlay{animation:animate-fade-in .2s ease-in-out}.driver-fade .driver-popover{animation:animate-fade-in .2s}.driver-popover{all:unset;box-sizing:border-box;color:#2d2d2d;margin:0;padding:15px;border-radius:5px;min-width:250px;max-width:300px;box-shadow:0 1px 10px rgba(0,0,0,.4);z-index:1000000000;position:fixed;top:0;right:0;background-color:#fff}.driver-popover *{font-family:Helvetica Neue,Inter,ui-sans-serif,"Apple Color Emoji",Helvetica,Arial,sans-serif}.driver-popover-title{font:19px/normal sans-serif;font-weight:700;display:block;position:relative;line-height:1.5;zoom:1;margin:0}.driver-popover-close-btn{all:unset;position:absolute;top:0;right:0;width:32px;height:28px;cursor:pointer;font-size:18px;font-weight:500;color:#d2d2d2;z-index:1;text-align:center;transition:color;transition-duration:.2s}.driver-popover-close-btn:hover,.driver-popover-close-btn:focus{color:#2d2d2d}.driver-popover-title[style*=block]+.driver-popover-description{margin-top:5px}.driver-popover-description{margin-bottom:0;font:14px/normal sans-serif;line-height:1.5;font-weight:400;zoom:1}.driver-popover-footer{margin-top:15px;text-align:right;zoom:1;display:flex;align-items:center;justify-content:space-between}.driver-popover-progress-text{font-size:13px;font-weight:400;color:#727272;zoom:1}.driver-popover-footer button{all:unset;display:inline-block;box-sizing:border-box;padding:3px 7px;text-decoration:none;text-shadow:1px 1px 0 #fff;background-color:#fff;color:#2d2d2d;font:12px/normal sans-serif;cursor:pointer;outline:0;zoom:1;line-height:1.3;border:1px solid #ccc;border-radius:3px}.driver-popover-footer .driver-popover-btn-disabled{opacity:.5;pointer-events:none}:not(body):has(>.driver-active-element){overflow:hidden !important}.driver-no-interaction,.driver-no-interaction *{pointer-events:none !important}.driver-popover-footer button:hover,.driver-popover-footer button:focus{background-color:#f7f7f7}.driver-popover-navigation-btns{display:flex;flex-grow:1;justify-content:flex-end}.driver-popover-navigation-btns button+button{margin-left:4px}.driver-popover-arrow{content:"";position:absolute;border:5px solid #fff}.driver-popover-arrow-side-over{display:none}.driver-popover-arrow-side-left{left:100%;border-right-color:transparent;border-bottom-color:transparent;border-top-color:transparent}.driver-popover-arrow-side-right{right:100%;border-left-color:transparent;border-bottom-color:transparent;border-top-color:transparent}.driver-popover-arrow-side-top{top:100%;border-right-color:transparent;border-bottom-color:transparent;border-left-color:transparent}.driver-popover-arrow-side-bottom{bottom:100%;border-left-color:transparent;border-top-color:transparent;border-right-color:transparent}.driver-popover-arrow-side-center{display:none}.driver-popover-arrow-side-left.driver-popover-arrow-align-start,.driver-popover-arrow-side-right.driver-popover-arrow-align-start{top:15px}.driver-popover-arrow-side-top.driver-popover-arrow-align-start,.driver-popover-arrow-side-bottom.driver-popover-arrow-align-start{left:15px}.driver-popover-arrow-align-end.driver-popover-arrow-side-left,.driver-popover-arrow-align-end.driver-popover-arrow-side-right{bottom:15px}.driver-popover-arrow-side-top.driver-popover-arrow-align-end,.driver-popover-arrow-side-bottom.driver-popover-arrow-align-end{right:15px}.driver-popover-arrow-side-left.driver-popover-arrow-align-center,.driver-popover-arrow-side-right.driver-popover-arrow-align-center{top:50%;margin-top:-5px}.driver-popover-arrow-side-top.driver-popover-arrow-align-center,.driver-popover-arrow-side-bottom.driver-popover-arrow-align-center{left:50%;margin-left:-5px}.driver-popover-arrow-none{display:none}</style><style>.driver-active .driver-overlay,.driver-active *{pointer-events:none}.driver-active .driver-active-element,.driver-active .driver-active-element *,.driver-popover,.driver-popover *{pointer-events:auto}@keyframes animate-fade-in{0%{opacity:0}to{opacity:1}}.driver-fade .driver-overlay{animation:animate-fade-in .2s ease-in-out}.driver-fade .driver-popover{animation:animate-fade-in .2s}.driver-popover{all:unset;box-sizing:border-box;color:#2d2d2d;margin:0;padding:15px;border-radius:5px;min-width:250px;max-width:300px;box-shadow:0 1px 10px rgba(0,0,0,.4);z-index:1000000000;position:fixed;top:0;right:0;background-color:#fff}.driver-popover *{font-family:Helvetica Neue,Inter,ui-sans-serif,"Apple Color Emoji",Helvetica,Arial,sans-serif}.driver-popover-title{font:19px/normal sans-serif;font-weight:700;display:block;position:relative;line-height:1.5;zoom:1;margin:0}.driver-popover-close-btn{all:unset;position:absolute;top:0;right:0;width:32px;height:28px;cursor:pointer;font-size:18px;font-weight:500;color:#d2d2d2;z-index:1;text-align:center;transition:color;transition-duration:.2s}.driver-popover-close-btn:hover,.driver-popover-close-btn:focus{color:#2d2d2d}.driver-popover-title[style*=block]+.driver-popover-description{margin-top:5px}.driver-popover-description{margin-bottom:0;font:14px/normal sans-serif;line-height:1.5;font-weight:400;zoom:1}.driver-popover-footer{margin-top:15px;text-align:right;zoom:1;display:flex;align-items:center;justify-content:space-between}.driver-popover-progress-text{font-size:13px;font-weight:400;color:#727272;zoom:1}.driver-popover-footer button{all:unset;display:inline-block;box-sizing:border-box;padding:3px 7px;text-decoration:none;text-shadow:1px 1px 0 #fff;background-color:#fff;color:#2d2d2d;font:12px/normal sans-serif;cursor:pointer;outline:0;zoom:1;line-height:1.3;border:1px solid #ccc;border-radius:3px}.driver-popover-footer .driver-popover-btn-disabled{opacity:.5;pointer-events:none}:not(body):has(>.driver-active-element){overflow:hidden !important}.driver-no-interaction,.driver-no-interaction *{pointer-events:none !important}.driver-popover-footer button:hover,.driver-popover-footer button:focus{background-color:#f7f7f7}.driver-popover-navigation-btns{display:flex;flex-grow:1;justify-content:flex-end}.driver-popover-navigation-btns button+button{margin-left:4px}.driver-popover-arrow{content:"";position:absolute;border:5px solid #fff}.driver-popover-arrow-side-over{display:none}.driver-popover-arrow-side-left{left:100%;border-right-color:transparent;border-bottom-color:transparent;border-top-color:transparent}.driver-popover-arrow-side-right{right:100%;border-left-color:transparent;border-bottom-color:transparent;border-top-color:transparent}.driver-popover-arrow-side-top{top:100%;border-right-color:transparent;border-bottom-color:transparent;border-left-color:transparent}.driver-popover-arrow-side-bottom{bottom:100%;border-left-color:transparent;border-top-color:transparent;border-right-color:transparent}.driver-popover-arrow-side-center{display:none}.driver-popover-arrow-side-left.driver-popover-arrow-align-start,.driver-popover-arrow-side-right.driver-popover-arrow-align-start{top:15px}.driver-popover-arrow-side-top.driver-popover-arrow-align-start,.driver-popover-arrow-side-bottom.driver-popover-arrow-align-start{left:15px}.driver-popover-arrow-align-end.driver-popover-arrow-side-left,.driver-popover-arrow-align-end.driver-popover-arrow-side-right{bottom:15px}.driver-popover-arrow-side-top.driver-popover-arrow-align-end,.driver-popover-arrow-side-bottom.driver-popover-arrow-align-end{right:15px}.driver-popover-arrow-side-left.driver-popover-arrow-align-center,.driver-popover-arrow-side-right.driver-popover-arrow-align-center{top:50%;margin-top:-5px}.driver-popover-arrow-side-top.driver-popover-arrow-align-center,.driver-popover-arrow-side-bottom.driver-popover-arrow-align-center{left:50%;margin-left:-5px}.driver-popover-arrow-none{display:none}</style></head>
+<body data-new-gr-c-s-check-loaded="14.1283.0" data-gr-ext-installed="">
+
+<!-- Floating decorations -->
+<div class="float-deco" style="top:8%;left:5%;animation-delay:0s">⭐</div>
+<div class="float-deco" style="top:20%;right:8%;animation-delay:2s">🌟</div>
+<div class="float-deco" style="top:45%;left:3%;animation-delay:4s">✨</div>
+<div class="float-deco" style="top:65%;right:5%;animation-delay:6s">🎈</div>
+<div class="float-deco" style="top:80%;left:10%;animation-delay:8s">🎯</div>
+<div class="float-deco" style="top:35%;right:12%;animation-delay:10s">🏆</div>
+
+<div id="passwordScreen">
+  <div class="pw-card">
+    <div style="font-size:48px;margin-bottom:10px">🔒</div>
+    <h2>Akili Learning</h2>
+    <p>Grade 1 Revision 2<br><span style="font-size:12px;color:#888">Balmoral Primary — April 2026</span></p>
+    <input type="password" class="pw-input" id="pwInput" placeholder="Password" maxlength="20" autocomplete="off" fdprocessedid="ouwlxo">
+    <button class="pw-btn" onclick="checkPassword()" fdprocessedid="9q4ay2">Enter</button>
+    <div class="pw-error" id="pwError"></div>
+  </div>
+</div>
+
+<div id="app" style="display:none">
+  <!-- HEADER -->
+  <div class="header">
+    <h1>Revision Time with Miss Numby!</h1>
+    <p>Before / After • More / Less • Ordering Numbers</p>
+  </div>
+
+  <!-- PROGRESS -->
+  <div class="progress-wrap"><div class="progress-bar" id="progressBar"></div></div>
+
+  <!-- SPEECH BUBBLE -->
+  <div class="speech-area">
+    <div class="speech-label">🌟 Miss Numby says:</div>
+    <div class="speech-text" id="speechText">Getting ready...</div>
+  </div>
+
+  <!-- ═══ SCENE 0: START ═══ -->
+  <div class="scene active" id="scene-start">
+    <div class="activity-card start-screen">
+      <div style="font-size:48px;margin-bottom:12px">📝✨</div>
+      <h2 style="font-family:&#39;Fredoka One&#39;,cursive;color:#1565C0;font-size:clamp(18px,3.5vw,24px)">
+        Let's see what you remember!
+      </h2>
+      <p style="font-weight:700;color:#5D4037;margin-top:10px;font-size:clamp(13px,2.2vw,16px);line-height:1.6">
+        Today we are going to do revision.<br>
+        Miss Numby will help you!<br>
+        Listen carefully and do your best!
+      </p>
+      <button class="start-btn" id="startBtn" onclick="beginLesson()">
+        Let's Start! 🚀
+      </button>
+    </div>
+  </div>
+
+  <!-- ═══ SCENE 1: WHAT NUMBER COMES AFTER ═══ -->
+  <div class="scene" id="scene-after">
+    <div class="activity-card">
+      <div class="activity-title">What number comes AFTER? ➡️</div>
+      <div id="afterRows"></div>
+    </div>
+  </div>
+
+  <!-- ═══ SCENE 2: WHAT NUMBER COMES BEFORE ═══ -->
+  <div class="scene" id="scene-before">
+    <div class="activity-card">
+      <div class="activity-title">What number comes BEFORE? ⬅️</div>
+      <div id="beforeRows"></div>
+    </div>
+  </div>
+
+  <!-- ═══ SCENE 3: MAKE 3 MORE ═══ -->
+  <div class="scene" id="scene-more">
+    <div class="activity-card">
+      <div class="activity-title">Make each number 3 MORE!</div>
+      <div id="moreRows"></div>
+    </div>
+  </div>
+
+  <!-- ═══ SCENE 4: MAKE 2 LESS ═══ -->
+  <div class="scene" id="scene-less">
+    <div class="activity-card">
+      <div class="activity-title">Make each number 2 LESS!</div>
+      <div id="lessRows"></div>
+    </div>
+  </div>
+
+  <!-- ═══ SCENE 5: ORDER BIGGEST TO SMALLEST ═══ -->
+  <div class="scene" id="scene-order1">
+    <div class="activity-card">
+      <div class="activity-title">Order from BIGGEST to smallest ⬇️</div>
+      <p style="text-align:center;font-weight:700;color:#5D4037;margin-bottom:14px;font-size:clamp(12px,2vw,15px)">
+        Tap the numbers in order from the biggest to the smallest
+      </p>
+      <div class="order-source" id="order1Source"></div>
+      <div class="order-boxes" id="order1Boxes"></div>
+      <button class="undo-btn" id="undo1Btn" onclick="undoOrder(1)">↩ Undo last</button>
+      <button class="check-btn" id="check1Btn" onclick="checkOrder(1)" disabled="" style="margin-top:12px">Check ✔️</button>
+    </div>
+  </div>
+
+  <!-- ═══ SCENE 6: ORDER SMALLEST TO BIGGEST ═══ -->
+  <div class="scene" id="scene-order2">
+    <div class="activity-card">
+      <div class="activity-title">Order from smallest to BIGGEST ⬆️</div>
+      <p style="text-align:center;font-weight:700;color:#5D4037;margin-bottom:14px;font-size:clamp(12px,2vw,15px)">
+        Tap the numbers in order from the smallest to the biggest
+      </p>
+      <div class="order-source" id="order2Source"></div>
+      <div class="order-boxes" id="order2Boxes"></div>
+      <button class="undo-btn" id="undo2Btn" onclick="undoOrder(2)">↩ Undo last</button>
+      <button class="check-btn" id="check2Btn" onclick="checkOrder(2)" disabled="" style="margin-top:12px">Check ✔️</button>
+    </div>
+  </div>
+
+  <!-- ═══ SCENE 7: RESULTS ═══ -->
+  <div class="scene" id="scene-results">
+    <div class="results-card">
+      <h2>Well done! You finished! 🎉</h2>
+      <div class="score-display" id="scoreDisplay"></div>
+      <div class="results-detail" id="resultsDetail"></div>
+      <div id="parentMessage" style="margin-top:18px;padding:16px;background:#FFF8E1;border-radius:14px;border:2px solid #FFD54F;text-align:left;font-size:clamp(12px,2vw,15px);font-weight:700;color:#5D4037;line-height:1.7"></div>
+    </div>
+
+    <!-- FEEDBACK FORM LINK -->
+    <div class="feedback-card" id="feedbackCard">
+      <h3>Please Complete the Feedback Form</h3>
+      <p style="text-align:center;font-weight:700;color:#5D4037;font-size:14px;line-height:1.6;margin-bottom:16px">
+        Your feedback helps us improve Akili Learning for your child.<br>
+        The form takes about 1 minute to complete.
+      </p>
+      <p style="text-align:center;font-weight:700;color:#1565C0;font-size:13px;margin-bottom:8px">
+        📝 Please remember to include:
+      </p>
+      <ul style="text-align:left;font-weight:700;color:#5D4037;font-size:13px;line-height:1.8;max-width:300px;margin:0 auto 16px;padding-left:20px">
+        <li>Your school's name</li>
+        <li>Your child's name &amp; grade</li>
+        <li>Your name as the parent</li>
+        <li>Today's score from this lesson</li>
+      </ul>
+      <button class="fb-submit" onclick="openFeedbackForm()">Open Feedback Form 📋</button>
+      <p style="text-align:center;font-weight:700;color:#888;font-size:11px;margin-top:12px">
+        The form opens in a new tab in your browser
+      </p>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ══════════════════════════════════════════════════════
+// CONFIGURATION
+// ══════════════════════════════════════════════════════
+
+const AFTER_DATA = [
+  {num:4, answer:5},
+  {num:9, answer:10},
+  {num:3, answer:4},
+  {num:6, answer:7},
+  {num:8, answer:9}
+];
+
+const BEFORE_DATA = [
+  {num:10, answer:9},
+  {num:3, answer:2},
+  {num:6, answer:5},
+  {num:8, answer:7},
+  {num:5, answer:4}
+];
+
+const MORE_DATA = [
+  {num:6, answer:9},
+  {num:4, answer:7},
+  {num:2, answer:5},
+  {num:7, answer:10},
+  {num:5, answer:8}
+];
+
+const LESS_DATA = [
+  {num:8, answer:6},
+  {num:4, answer:2},
+  {num:2, answer:0},
+  {num:5, answer:3},
+  {num:9, answer:7}
+];
+
+const ORDER1 = {nums:[6,4,9,5,1], correct:[9,6,5,4,1]}; // biggest to smallest
+const ORDER2 = {nums:[4,3,1,6,9], correct:[1,3,4,6,9]}; // smallest to biggest
+
+// Track all results
+const results = {
+  after: [],    // {num, answer, given, correct}
+  before: [],
+  more: [],
+  less: [],
+  order1: null, // true/false
+  order2: null
+};
+
+let totalCorrect = 0;
+const totalQuestions = 30; // 5+5+5+5+5+5 (ordering counts each position)
+
+// ══════════════════════════════════════════════════════
+// SPEECH SYNTHESIS
+// ══════════════════════════════════════════════════════
+
+let voices = [];
+let selectedVoice = null;
+
+function loadVoices(){
+  return new Promise(resolve => {
+    const load = () => {
+      voices = speechSynthesis.getVoices();
+      // Prefer a female English voice
+      const prefs = [
+        v => /samantha/i.test(v.name),
+        v => /fiona/i.test(v.name),
+        v => /karen/i.test(v.name),
+        v => /victoria/i.test(v.name),
+        v => /zira/i.test(v.name),
+        v => /hazel/i.test(v.name),
+        v => /female/i.test(v.name) && /en/i.test(v.lang),
+        v => /en[-_](gb|us|za|au)/i.test(v.lang) && !/male/i.test(v.name),
+        v => /en/i.test(v.lang)
+      ];
+      for(const fn of prefs){
+        const found = voices.find(fn);
+        if(found){selectedVoice=found;break;}
+      }
+      resolve();
+    };
+    if(speechSynthesis.getVoices().length) load();
+    else speechSynthesis.onvoiceschanged = load;
+    setTimeout(resolve, 2000);
+  });
+}
+
+function speak(text, rate=0.85){
+  return new Promise(resolve => {
+    speechSynthesis.cancel();
+    setTimeout(() => {
+      const u = new SpeechSynthesisUtterance(text);
+      if(selectedVoice) u.voice = selectedVoice;
+      u.rate = rate;
+      u.pitch = 1.15;
+      u.volume = 1;
+      u.onend = () => setTimeout(resolve, 300);
+      u.onerror = () => setTimeout(resolve, 300);
+      speechSynthesis.speak(u);
+      // Android fix: keep synthesis alive
+      const keepAlive = setInterval(() => {
+        if(!speechSynthesis.speaking){clearInterval(keepAlive);return;}
+        speechSynthesis.pause();speechSynthesis.resume();
+      }, 5000);
+      u.onend = () => {clearInterval(keepAlive);setTimeout(resolve,300)};
+      u.onerror = () => {clearInterval(keepAlive);setTimeout(resolve,300)};
+    }, 50);
+  });
+}
+
+function setBubble(text){
+  document.getElementById('speechText').textContent = text;
+}
+
+async function sayAndShow(text, rate=0.82){
+  setBubble(text);
+  await speak(text, rate);
+}
+
+function sleep(ms){return new Promise(r=>setTimeout(r,ms));}
+
+function setProgress(pct){
+  document.getElementById('progressBar').style.width = pct+'%';
+}
+
+// ══════════════════════════════════════════════════════
+// SCENE MANAGEMENT
+// ══════════════════════════════════════════════════════
+
+function showScene(id){
+  document.querySelectorAll('.scene').forEach(s=>s.classList.remove('active'));
+  document.getElementById('scene-'+id).classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// ══════════════════════════════════════════════════════
+// SOUNDS
+// ══════════════════════════════════════════════════════
+
+const AudioCtx = window.AudioContext || window.webkitAudioContext;
+let audioCtx;
+function initAudio(){if(!audioCtx)audioCtx=new AudioCtx();}
+
+function playDing(){
+  if(!audioCtx)return;
+  const o=audioCtx.createOscillator(),g=audioCtx.createGain();
+  o.connect(g);g.connect(audioCtx.destination);
+  o.frequency.setValueAtTime(880,audioCtx.currentTime);
+  o.frequency.exponentialRampToValueAtTime(1320,audioCtx.currentTime+0.1);
+  g.gain.setValueAtTime(0.3,audioCtx.currentTime);
+  g.gain.exponentialRampToValueAtTime(0.001,audioCtx.currentTime+0.4);
+  o.start();o.stop(audioCtx.currentTime+0.4);
+}
+
+function playBuzz(){
+  if(!audioCtx)return;
+  const o=audioCtx.createOscillator(),g=audioCtx.createGain();
+  o.connect(g);g.connect(audioCtx.destination);
+  o.type='square';
+  o.frequency.setValueAtTime(180,audioCtx.currentTime);
+  g.gain.setValueAtTime(0.2,audioCtx.currentTime);
+  g.gain.exponentialRampToValueAtTime(0.001,audioCtx.currentTime+0.3);
+  o.start();o.stop(audioCtx.currentTime+0.3);
+}
+
+function playTada(){
+  if(!audioCtx)return;
+  const notes=[523,659,784,1047];
+  notes.forEach((f,i)=>{
+    const o=audioCtx.createOscillator(),g=audioCtx.createGain();
+    o.connect(g);g.connect(audioCtx.destination);
+    o.frequency.value=f;
+    g.gain.setValueAtTime(0,audioCtx.currentTime+i*0.12);
+    g.gain.linearRampToValueAtTime(0.25,audioCtx.currentTime+i*0.12+0.05);
+    g.gain.exponentialRampToValueAtTime(0.001,audioCtx.currentTime+i*0.12+0.5);
+    o.start(audioCtx.currentTime+i*0.12);
+    o.stop(audioCtx.currentTime+i*0.12+0.5);
+  });
+}
+
+// ══════════════════════════════════════════════════════
+// BUILD TYPE-IN ROWS
+// ══════════════════════════════════════════════════════
+
+function buildAfterRows(){
+  const c = document.getElementById('afterRows');
+  c.innerHTML = '';
+  AFTER_DATA.forEach((item, i) => {
+    const row = document.createElement('div');
+    row.className = 'num-row';
+    row.id = 'after-row-'+i;
+    row.innerHTML = `
+      <span class="num-display">${item.num}</span>
+      <span class="arrow-label">→</span>
+      <input type="number" class="answer-box" id="after-input-${i}"
+        inputmode="numeric" pattern="[0-9]*" maxlength="2"
+        autocomplete="off">
+      <button class="go-btn" id="after-go-${i}">Go</button>
+    `;
+    c.appendChild(row);
+  });
+}
+
+function buildBeforeRows(){
+  const c = document.getElementById('beforeRows');
+  c.innerHTML = '';
+  BEFORE_DATA.forEach((item, i) => {
+    const row = document.createElement('div');
+    row.className = 'num-row';
+    row.id = 'before-row-'+i;
+    row.innerHTML = `
+      <input type="number" class="answer-box" id="before-input-${i}"
+        inputmode="numeric" pattern="[0-9]*" maxlength="2"
+        autocomplete="off">
+      <button class="go-btn" id="before-go-${i}">Go</button>
+      <span class="arrow-label">→</span>
+      <span class="num-display">${item.num}</span>
+    `;
+    c.appendChild(row);
+  });
+}
+
+function buildMoreRows(){
+  const c = document.getElementById('moreRows');
+  c.innerHTML = '';
+  MORE_DATA.forEach((item, i) => {
+    const row = document.createElement('div');
+    row.className = 'num-row';
+    row.id = 'more-row-'+i;
+    row.innerHTML = `
+      <span class="num-display">${item.num}</span>
+      <span class="arrow-label">→</span>
+      <input type="number" class="answer-box" id="more-input-${i}"
+        inputmode="numeric" pattern="[0-9]*" maxlength="2"
+        autocomplete="off">
+      <button class="go-btn" id="more-go-${i}">Go</button>
+    `;
+    c.appendChild(row);
+  });
+}
+
+function buildLessRows(){
+  const c = document.getElementById('lessRows');
+  c.innerHTML = '';
+  LESS_DATA.forEach((item, i) => {
+    const row = document.createElement('div');
+    row.className = 'num-row';
+    row.id = 'less-row-'+i;
+    row.innerHTML = `
+      <span class="num-display">${item.num}</span>
+      <span class="arrow-label">→</span>
+      <input type="number" class="answer-box" id="less-input-${i}"
+        inputmode="numeric" pattern="[0-9]*" maxlength="2"
+        autocomplete="off">
+      <button class="go-btn" id="less-go-${i}">Go</button>
+    `;
+    c.appendChild(row);
+  });
+}
+
+// ══════════════════════════════════════════════════════
+// BUILD ORDERING ACTIVITIES
+// ══════════════════════════════════════════════════════
+
+let order1Picks = [];
+let order2Picks = [];
+
+function buildOrderTiles(actNum){
+  const data = actNum === 1 ? ORDER1 : ORDER2;
+  const picks = actNum === 1 ? order1Picks : order2Picks;
+  const srcEl = document.getElementById('order'+actNum+'Source');
+  const boxEl = document.getElementById('order'+actNum+'Boxes');
+
+  srcEl.innerHTML = '';
+  boxEl.innerHTML = '';
+
+  data.nums.forEach((n, i) => {
+    const tile = document.createElement('div');
+    tile.className = 'order-tile tile-c'+i;
+    tile.id = 'otile-'+actNum+'-'+i;
+    tile.textContent = n;
+    tile.dataset.val = n;
+    tile.onclick = () => pickOrderTile(actNum, i, n);
+    srcEl.appendChild(tile);
+  });
+
+  for(let i=0;i<data.nums.length;i++){
+    const box = document.createElement('div');
+    box.className = 'order-box';
+    box.id = 'obox-'+actNum+'-'+i;
+    boxEl.appendChild(box);
+  }
+}
+
+function pickOrderTile(actNum, tileIdx, val){
+  const tile = document.getElementById('otile-'+actNum+'-'+tileIdx);
+  if(tile.classList.contains('used')) return;
+
+  const picks = actNum === 1 ? order1Picks : order2Picks;
+  const data = actNum === 1 ? ORDER1 : ORDER2;
+
+  tile.classList.add('used');
+  picks.push({tileIdx, val});
+
+  // Fill next box
+  const boxIdx = picks.length - 1;
+  const box = document.getElementById('obox-'+actNum+'-'+boxIdx);
+  box.textContent = val;
+  box.classList.add('filled');
+
+  playDing();
+
+  // Enable check when all picked
+  if(picks.length === data.nums.length){
+    document.getElementById('check'+actNum+'Btn').disabled = false;
+    document.getElementById('undo'+actNum+'Btn').style.display = 'none';
+  }
+}
+
+function undoOrder(actNum){
+  const picks = actNum === 1 ? order1Picks : order2Picks;
+  if(picks.length === 0) return;
+
+  const last = picks.pop();
+  // Un-use tile
+  const tile = document.getElementById('otile-'+actNum+'-'+last.tileIdx);
+  tile.classList.remove('used');
+
+  // Clear box
+  const box = document.getElementById('obox-'+actNum+'-'+picks.length);
+  box.textContent = '';
+  box.classList.remove('filled');
+
+  document.getElementById('check'+actNum+'Btn').disabled = true;
+}
+
+async function checkOrder(actNum){
+  const picks = actNum === 1 ? order1Picks : order2Picks;
+  const data = actNum === 1 ? ORDER1 : ORDER2;
+  const btn = document.getElementById('check'+actNum+'Btn');
+  const undoBtn = document.getElementById('undo'+actNum+'Btn');
+  btn.disabled = true;
+  undoBtn.style.display = 'none';
+
+  const userOrder = picks.map(p => p.val);
+  let positionsCorrect = 0;
+
+  // Show result on boxes and count correct positions
+  for(let i=0;i<data.nums.length;i++){
+    const box = document.getElementById('obox-'+actNum+'-'+i);
+    if(userOrder[i] === data.correct[i]){
+      box.classList.add('correct-order');
+      positionsCorrect++;
+      totalCorrect++;
+    } else {
+      box.classList.add('wrong-order');
+    }
+  }
+
+  const allCorrect = positionsCorrect === data.nums.length;
+  if(actNum === 1) results.order1 = {correct: allCorrect, positions: positionsCorrect, total: data.nums.length, userOrder};
+  else results.order2 = {correct: allCorrect, positions: positionsCorrect, total: data.nums.length, userOrder};
+
+  if(allCorrect){
+    playTada();
+    await sayAndShow("That is correct! Wonderful job!");
+  } else {
+    playBuzz();
+    const correctStr = data.correct.join(', ');
+    await sayAndShow(`Oh no, that is not quite right. The correct order is: ${correctStr}. Don't worry, we will practice again!`);
+  }
+
+  // Disable all tiles
+  document.querySelectorAll('#order'+actNum+'Source .order-tile').forEach(t => {
+    t.onclick = null;
+    t.style.cursor = 'default';
+  });
+
+  await sleep(800);
+  if(actNum === 1) resolveOrder1();
+  else resolveOrder2();
+}
+
+let resolveOrder1, resolveOrder2;
+
+// ══════════════════════════════════════════════════════
+// TYPE-IN ACTIVITY HANDLER
+// ══════════════════════════════════════════════════════
+
+function handleTypeIn(inputId, correctAnswer, category, dataItem){
+  return new Promise(resolve => {
+    const input = document.getElementById(inputId);
+    const row = input.closest('.num-row');
+    const goBtn = row.querySelector('.go-btn');
+    let submitted = false;
+    let debounceTimer = null;
+
+    const submit = async () => {
+      if(submitted) return;
+      const val = input.value.trim();
+      if(val === '') return;
+      submitted = true;
+      if(debounceTimer) clearTimeout(debounceTimer);
+      if(goBtn) goBtn.disabled = true;
+
+      const numVal = parseInt(val);
+      input.disabled = true;
+
+      const isCorrect = numVal === correctAnswer;
+      const record = {num: dataItem.num, answer: correctAnswer, given: numVal, correct: isCorrect};
+      results[category].push(record);
+
+      if(isCorrect){
+        input.classList.add('correct');
+        row.classList.add('answered-correct');
+        playDing();
+        totalCorrect++;
+      } else {
+        input.classList.add('wrong');
+        row.classList.add('answered-wrong');
+        playBuzz();
+      }
+
+      await sleep(600);
+      resolve(isCorrect);
+    };
+
+    // Enter key = immediate submit
+    input.addEventListener('keydown', (e) => {
+      if(e.key === 'Enter') submit();
+    });
+
+    // Go button = immediate submit
+    if(goBtn) goBtn.addEventListener('click', submit);
+
+    // Auto-submit 1.5s after last keystroke
+    input.addEventListener('input', () => {
+      if(debounceTimer) clearTimeout(debounceTimer);
+      const val = input.value.trim();
+      if(val === '') return;
+      debounceTimer = setTimeout(() => {
+        if(!submitted) submit();
+      }, 1500);
+    });
+
+    input.focus();
+  });
+}
+
+// ══════════════════════════════════════════════════════
+// MAIN LESSON FLOW
+// ══════════════════════════════════════════════════════
+
+async function beginLesson(){
+  initAudio();
+  await loadVoices();
+
+  // ─── INTRO ───
+  await sayAndShow("Hello there! Welcome back! I am Miss Numby, and today we are going to do revision! Are you ready? Read the instructions with me!");
+  await sleep(500);
+
+  await sayAndShow("Before we start, please tell your Mommy or Daddy what we are going to do today. Tell them: We are going to practice numbers! We will find the number that comes after and before. We will make numbers more and less. And we will put numbers in order!");
+  await sleep(2000);
+
+  await sayAndShow("Did you tell them? Wonderful! Mommy or Daddy, please sit with your child and help them if they need it, but let them try by themselves first. Let's go!");
+  await sleep(1000);
+
+  // ═══ SECTION 1: WHAT NUMBER COMES AFTER ═══
+  setProgress(5);
+  showScene('after');
+  buildAfterRows();
+  await sleep(400);
+
+  await sayAndShow("Here is our first activity! What number comes after? Look at each number and type the number that comes right after it in the box. Read the instructions with me: What number comes after?");
+  await sleep(800);
+
+  await sayAndShow("Remember, the number that comes AFTER is the next number when you count forward. For example, what comes after 2? That's right, 3! Because we count: 1, 2, 3!");
+  await sleep(800);
+
+  await sayAndShow("Now it's your turn! Look at the first number and type your answer in the box. You only get one chance, so think carefully! Mommy or Daddy, please let your child try first.");
+  await sleep(500);
+
+  for(let i=0; i<AFTER_DATA.length; i++){
+    const item = AFTER_DATA[i];
+    if(i > 0) await sleep(300);
+    setBubble(`What number comes after ${item.num}? Type your answer!`);
+    const correct = await handleTypeIn('after-input-'+i, item.answer, 'after', item);
+    if(correct){
+      await sayAndShow(`Yes! ${item.answer} comes after ${item.num}! Well done!`);
+    } else {
+      await sayAndShow(`The number that comes after ${item.num} is ${item.answer}. Let's keep going!`);
+    }
+  }
+
+  await sayAndShow("You have finished the first activity! Let's move on!");
+  await sleep(600);
+
+  // ═══ SECTION 2: WHAT NUMBER COMES BEFORE ═══
+  setProgress(20);
+  showScene('before');
+  buildBeforeRows();
+  await sleep(400);
+
+  await sayAndShow("Now we are doing our second activity! What number comes before? Read the instructions with me: What number comes before?");
+  await sleep(800);
+
+  await sayAndShow("The number that comes BEFORE is the number just before it when you count. For example, what comes before 5? That's right, 4! Because we count: 3, 4, 5! The number before 5 is 4.");
+  await sleep(800);
+
+  await sayAndShow("Type your answer in the box in front of each number. Remember, you only get one chance! Do your best!");
+  await sleep(500);
+
+  for(let i=0; i<BEFORE_DATA.length; i++){
+    const item = BEFORE_DATA[i];
+    if(i > 0) await sleep(300);
+    setBubble(`What number comes before ${item.num}? Type your answer!`);
+    const correct = await handleTypeIn('before-input-'+i, item.answer, 'before', item);
+    if(correct){
+      await sayAndShow(`Yes! ${item.answer} comes before ${item.num}! Fantastic!`);
+    } else {
+      await sayAndShow(`The number that comes before ${item.num} is ${item.answer}. Keep trying your best!`);
+    }
+  }
+
+  await sayAndShow("Great work! You have finished the second activity! You are doing so well!");
+  await sleep(600);
+
+  // ═══ SECTION 3: MAKE 3 MORE ═══
+  setProgress(40);
+  showScene('more');
+  buildMoreRows();
+  await sleep(400);
+
+  await sayAndShow("Here is our third activity! Make each number 3 more! Read the instructions with me: Make each number 3 more!");
+  await sleep(800);
+
+  await sayAndShow("When we make a number 3 more, we put the number in our head and count on 3 on our fingers. For example, 3 more than 1: put 1 in your head, now count on 3 fingers: 2, 3, 4! The answer is 4!");
+  await sleep(800);
+
+  await sayAndShow("Now you try! Put the number in your head and count on 3 on your fingers. Type the answer in the box. Mommy or Daddy, please help if your child gets stuck.");
+  await sleep(500);
+
+  for(let i=0; i<MORE_DATA.length; i++){
+    const item = MORE_DATA[i];
+    if(i > 0) await sleep(300);
+    setBubble(`What is 3 more than ${item.num}? Type your answer!`);
+    const correct = await handleTypeIn('more-input-'+i, item.answer, 'more', item);
+    if(correct){
+      await sayAndShow(`That's right! 3 more than ${item.num} is ${item.answer}! Well done!`);
+    } else {
+      await sayAndShow(`3 more than ${item.num} is ${item.answer}. Don't worry, we will practice again!`);
+    }
+  }
+
+  await sayAndShow("You have finished the third activity! Let's continue!");
+  await sleep(600);
+
+  // ═══ SECTION 4: MAKE 2 LESS ═══
+  setProgress(55);
+  showScene('less');
+  buildLessRows();
+  await sleep(400);
+
+  await sayAndShow("Now we are going to do activity four! Make each number 2 less! Read the instructions with me: Make each number 2 less!");
+  await sleep(800);
+
+  await sayAndShow("When we make a number 2 less, we put the number in our head and count 2 back on our fingers. For example, 2 less than 5: put 5 in your head, now count 2 back on your fingers: 4, 3! The answer is 3!");
+  await sleep(800);
+
+  await sayAndShow("Now you try! Put the number in your head and count 2 back on your fingers. Type the answer in the box. Remember, you only get one chance.");
+  await sleep(500);
+
+  for(let i=0; i<LESS_DATA.length; i++){
+    const item = LESS_DATA[i];
+    if(i > 0) await sleep(300);
+    setBubble(`What is 2 less than ${item.num}? Type your answer!`);
+    const correct = await handleTypeIn('less-input-'+i, item.answer, 'less', item);
+    if(correct){
+      await sayAndShow(`Yes! 2 less than ${item.num} is ${item.answer}! Excellent!`);
+    } else {
+      await sayAndShow(`2 less than ${item.num} is ${item.answer}. Keep going, you are doing great!`);
+    }
+  }
+
+  await sayAndShow("You have finished the fourth activity! Only two more to go! You are amazing!");
+  await sleep(600);
+
+  // ═══ SECTION 5: ORDER BIGGEST TO SMALLEST ═══
+  setProgress(72);
+  showScene('order1');
+  order1Picks = [];
+  buildOrderTiles(1);
+  await sleep(400);
+
+  await sayAndShow("Now we are going to put numbers in order! Read the instructions with me: Order the numbers from biggest to smallest.");
+  await sleep(800);
+
+  await sayAndShow("Look at the numbers. You need to find the BIGGEST number first, and tap on it. Then find the next biggest, and tap on it. Keep going until all the numbers are in the boxes from biggest to smallest.");
+  await sleep(800);
+
+  await sayAndShow("Tap the numbers now! Start with the biggest number. When you have chosen all the numbers, press the Check button. If you make a mistake, you can press Undo to go back!");
+  await sleep(300);
+
+  // Wait for check
+  await new Promise(resolve => {resolveOrder1 = resolve;});
+  await sleep(600);
+
+  // ═══ SECTION 6: ORDER SMALLEST TO BIGGEST ═══
+  setProgress(86);
+  showScene('order2');
+  order2Picks = [];
+  buildOrderTiles(2);
+  await sleep(400);
+
+  await sayAndShow("Here is the last activity! Read the instructions with me: Order the numbers from smallest to biggest.");
+  await sleep(800);
+
+  await sayAndShow("This time, find the SMALLEST number first, and tap on it. Then find the next smallest, and keep going until all the numbers are in the boxes from smallest to biggest.");
+  await sleep(800);
+
+  await sayAndShow("Tap the numbers now! Start with the smallest. Press Check when you're done. You can use the Undo button if you need to go back!");
+  await sleep(300);
+
+  // Wait for check
+  await new Promise(resolve => {resolveOrder2 = resolve;});
+  await sleep(600);
+
+  // ═══ RESULTS ═══
+  setProgress(100);
+  showScene('results');
+  showResults();
+  playTada();
+  launchConfetti();
+
+  await sayAndShow("Congratulations! You have finished all the revision activities! Let's see how you did!");
+  await sleep(2000);
+
+  // Final parent message
+  const wrongItems = getWrongItems();
+  if(wrongItems.length > 0){
+    await sayAndShow("Mommy or Daddy, please go through the answers that were wrong with your child. Talk about them together and practice them. There will be another opportunity to do a similar activity to practice some more. Keep up the good work!");
+  } else {
+    await sayAndShow("What an incredible job! You got everything right! Mommy or Daddy, your child has done amazing work today! Keep practicing to stay sharp! See you next time!");
+  }
+}
+
+// ══════════════════════════════════════════════════════
+// RESULTS
+// ══════════════════════════════════════════════════════
+
+function getWrongItems(){
+  const wrong = [];
+  ['after','before','more','less'].forEach(cat => {
+    results[cat].forEach(r => {
+      if(!r.correct) wrong.push(r);
+    });
+  });
+  if(results.order1 && !results.order1.correct) wrong.push({section:'Order biggest to smallest'});
+  if(results.order2 && !results.order2.correct) wrong.push({section:'Order smallest to biggest'});
+  return wrong;
+}
+
+function showResults(){
+  const pct = Math.round((totalCorrect / totalQuestions) * 100);
+  document.getElementById('scoreDisplay').textContent = `${totalCorrect} / ${totalQuestions} (${pct}%)`;
+
+  // Count correct per section for breakdown
+  const afterCorrect = results.after.filter(r => r.correct).length;
+  const beforeCorrect = results.before.filter(r => r.correct).length;
+  const moreCorrect = results.more.filter(r => r.correct).length;
+  const lessCorrect = results.less.filter(r => r.correct).length;
+  const order1Correct = results.order1 ? results.order1.positions : 0;
+  const order2Correct = results.order2 ? results.order2.positions : 0;
+
+  let html = '';
+
+  // Score breakdown table
+  html += '<div style="background:#E3F2FD;border-radius:12px;padding:12px;margin-bottom:14px;border:2px solid #90CAF9">';
+  html += '<p style="font-family:Fredoka One,cursive;color:#1565C0;text-align:center;margin-bottom:8px">Score Breakdown (30 questions total)</p>';
+  html += `<p style="font-size:13px">What comes after: <strong>${afterCorrect} / 5</strong></p>`;
+  html += `<p style="font-size:13px">What comes before: <strong>${beforeCorrect} / 5</strong></p>`;
+  html += `<p style="font-size:13px">Make 3 more: <strong>${moreCorrect} / 5</strong></p>`;
+  html += `<p style="font-size:13px">Make 2 less: <strong>${lessCorrect} / 5</strong></p>`;
+  html += `<p style="font-size:13px">Order biggest to smallest: <strong>${order1Correct} / 5</strong></p>`;
+  html += `<p style="font-size:13px">Order smallest to biggest: <strong>${order2Correct} / 5</strong></p>`;
+  html += `<p style="font-size:14px;margin-top:6px;padding-top:6px;border-top:2px solid #90CAF9"><strong>TOTAL: ${totalCorrect} / 30</strong></p>`;
+  html += '</div>';
+
+  // After section
+  html += '<p style="font-family:Fredoka One,cursive;color:#1565C0;margin-top:8px">What number comes after: (5 questions)</p>';
+  results.after.forEach(r => {
+    const cls = r.correct ? 'result-correct' : 'result-wrong';
+    const icon = r.correct ? '✅' : '❌';
+    html += `<p class="${cls}">${icon} What comes after ${r.num}? Your answer: ${r.given} ${r.correct ? '(Correct!)' : `(Wrong — correct answer: ${r.answer})`}</p>`;
+  });
+
+  // Before section
+  html += '<p style="font-family:Fredoka One,cursive;color:#1565C0;margin-top:12px">What number comes before: (5 questions)</p>';
+  results.before.forEach(r => {
+    const cls = r.correct ? 'result-correct' : 'result-wrong';
+    const icon = r.correct ? '✅' : '❌';
+    html += `<p class="${cls}">${icon} What comes before ${r.num}? Your answer: ${r.given} ${r.correct ? '(Correct!)' : `(Wrong — correct answer: ${r.answer})`}</p>`;
+  });
+
+  // More section
+  html += '<p style="font-family:Fredoka One,cursive;color:#1565C0;margin-top:12px">Make each number 3 more: (5 questions)</p>';
+  results.more.forEach(r => {
+    const cls = r.correct ? 'result-correct' : 'result-wrong';
+    const icon = r.correct ? '✅' : '❌';
+    html += `<p class="${cls}">${icon} 3 more than ${r.num}: your answer ${r.given} ${r.correct ? '(Correct!)' : `(Wrong — correct answer: ${r.answer})`}</p>`;
+  });
+
+  // Less section
+  html += '<p style="font-family:Fredoka One,cursive;color:#1565C0;margin-top:12px">Make each number 2 less: (5 questions)</p>';
+  results.less.forEach(r => {
+    const cls = r.correct ? 'result-correct' : 'result-wrong';
+    const icon = r.correct ? '✅' : '❌';
+    html += `<p class="${cls}">${icon} 2 less than ${r.num}: your answer ${r.given} ${r.correct ? '(Correct!)' : `(Wrong — correct answer: ${r.answer})`}</p>`;
+  });
+
+  // Ordering section 1 - show each position
+  html += '<p style="font-family:Fredoka One,cursive;color:#1565C0;margin-top:12px">Order from biggest to smallest: (5 questions — one per position)</p>';
+  if(results.order1){
+    const o1 = results.order1;
+    for(let i = 0; i < ORDER1.correct.length; i++){
+      const userNum = o1.userOrder[i];
+      const correctNum = ORDER1.correct[i];
+      const posCorrect = userNum === correctNum;
+      const cls = posCorrect ? 'result-correct' : 'result-wrong';
+      const icon = posCorrect ? '✅' : '❌';
+      const posLabel = ['1st', '2nd', '3rd', '4th', '5th'][i];
+      html += `<p class="${cls}">${icon} ${posLabel} position: your answer ${userNum} ${posCorrect ? '(Correct!)' : `(Wrong — correct answer: ${correctNum})`}</p>`;
+    }
+  }
+
+  // Ordering section 2 - show each position
+  html += '<p style="font-family:Fredoka One,cursive;color:#1565C0;margin-top:12px">Order from smallest to biggest: (5 questions — one per position)</p>';
+  if(results.order2){
+    const o2 = results.order2;
+    for(let i = 0; i < ORDER2.correct.length; i++){
+      const userNum = o2.userOrder[i];
+      const correctNum = ORDER2.correct[i];
+      const posCorrect = userNum === correctNum;
+      const cls = posCorrect ? 'result-correct' : 'result-wrong';
+      const icon = posCorrect ? '✅' : '❌';
+      const posLabel = ['1st', '2nd', '3rd', '4th', '5th'][i];
+      html += `<p class="${cls}">${icon} ${posLabel} position: your answer ${userNum} ${posCorrect ? '(Correct!)' : `(Wrong — correct answer: ${correctNum})`}</p>`;
+    }
+  }
+
+  document.getElementById('resultsDetail').innerHTML = html;
+
+  // Parent message
+  const wrong = getWrongItems();
+  let parentMsg = '';
+  if(wrong.length === 0){
+    parentMsg = `<p><strong>Amazing!</strong> Your child got every answer correct! They have a strong understanding of these concepts.</p>
+    <p style="margin-top:8px">Please continue to practice these skills regularly to keep them fresh. Well done to both of you!</p>`;
+  } else {
+    parentMsg = `<p><strong>Dear Parent,</strong></p>
+    <p style="margin-top:6px">Please go through the answers marked with ❌ with your child. Talk about each one and practice together.</p>
+    <p style="margin-top:6px">There will be <strong>another opportunity</strong> to do a similar activity so your child can practice some more.</p>
+    <p style="margin-top:6px">Remember: practice makes perfect! You can count together during everyday activities — counting steps, counting fruit, counting toys.</p>
+    <p style="margin-top:8px">Thank you for supporting your child's learning!</p>`;
+  }
+  document.getElementById('parentMessage').innerHTML = parentMsg;
+}
+
+// ══════════════════════════════════════════════════════
+// CONFETTI
+// ══════════════════════════════════════════════════════
+
+function launchConfetti(){
+  const cols=['#FFD54F','#42A5F5','#66BB6A','#EF5350','#AB47BC','#FF7043'];
+  const wrap=document.createElement('div');wrap.className='confetti-wrap';
+  document.body.appendChild(wrap);
+  for(let i=0;i<60;i++){
+    const p=document.createElement('div');p.className='cp';
+    p.style.cssText=`
+      position:absolute;left:${Math.random()*100}%;top:-20px;
+      width:${6+Math.random()*10}px;height:${6+Math.random()*10}px;
+      background:${cols[i%cols.length]};
+      border-radius:${Math.random()>.5?'50%':'3px'};
+      animation:confFall ${2+Math.random()*2}s linear ${Math.random()*1.5}s forwards;
+    `;
+    wrap.appendChild(p);
+  }
+  setTimeout(()=>wrap.remove(),5500);
+}
+
+// ══════════════════════════════════════════════════════
+// PASSWORD
+// ══════════════════════════════════════════════════════
+
+const MONTHLY_PASSWORD = "balmoral-april"; // Balmoral Primary — April 2026
+
+function checkPassword(){
+  const input = document.getElementById('pwInput').value.trim().toLowerCase();
+  if(input === MONTHLY_PASSWORD){
+    document.getElementById('passwordScreen').style.display = 'none';
+    document.getElementById('app').style.display = 'block';
+    initAfterPassword();
+  } else {
+    document.getElementById('pwError').textContent = 'Incorrect password. Please try again.';
+    document.getElementById('pwInput').value = '';
+    document.getElementById('pwInput').focus();
+  }
+}
+
+// Allow Enter key on password
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('pwInput').addEventListener('keydown', e => {
+    if(e.key === 'Enter') checkPassword();
+  });
+});
+
+// ══════════════════════════════════════════════════════
+// FEEDBACK FORM - Opens your Google Form
+// ══════════════════════════════════════════════════════
+
+const FEEDBACK_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSemC5qB2ZsXff2tgfoZMYzE0MfcZwiUQNfiY0gveCGDHvD_RA/viewform";
+
+function openFeedbackForm(){
+  window.open(FEEDBACK_FORM_URL, '_blank');
+}
+
+// ══════════════════════════════════════════════════════
+// INIT
+// ══════════════════════════════════════════════════════
+
+async function initAfterPassword(){
+  await loadVoices();
+  setBubble("Hello! Press 'Let's Start' when you are ready!");
+  await speak("Hello! Press Let's Start when you are ready!", 0.85);
+}
+
+window.addEventListener('load', () => {
+  document.getElementById('pwInput').focus();
+});
+</script>
+
+
+<span id="PING_IFRAME_FORM_DETECTION" style="display: none;"></span><grammarly-desktop-integration data-grammarly-shadow-root="true"><template shadowrootmode="open"><style>
+      div.grammarly-desktop-integration {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select:none;
+        user-select:none;
+      }
+
+      div.grammarly-desktop-integration:before {
+        content: attr(data-content);
+      }
+    </style><div aria-label="grammarly-integration" role="group" tabindex="-1" class="grammarly-desktop-integration" data-content="{&quot;mode&quot;:&quot;full&quot;,&quot;isActive&quot;:true,&quot;isUserDisabled&quot;:false}"></div></template></grammarly-desktop-integration><div id="screenity-ui"><div class="screenity-shadow-dom"><div><div class="screenity-scrollbar"></div><div class="screenity-scrollbar"></div></div><style type="text/css">
+			#screenity-ui, #screenity-ui div {
+				background-color: unset;
+				padding: unset;
+				width: unset;
+				box-shadow: unset;
+				display: unset;
+				margin: unset;
+				border-radius: unset;
+			}
+			.screenity-outline {
+				position: absolute;
+				z-index: 99999999999;
+				border: 2px solid #3080F8;
+				outline-offset: -2px;
+				pointer-events: none;
+				border-radius: 5px!important;
+			}
+		.screenity-blur {
+			filter: blur(10px)!important;
+		}
+			.screenity-shadow-dom * {
+				transition: unset;
+			}
+			.screenity-shadow-dom .TooltipContent {
+  border-radius: 30px!important;
+	background-color: #29292F!important;
+  padding: 10px 15px!important;
+  font-size: 12px;
+	margin-bottom: 10px!important;
+	bottom: 100px;
+  line-height: 1;
+	font-family: 'Satoshi-Medium', sans-serif;
+	z-index: 99999999!important;
+  color: #FFF;
+  box-shadow: hsl(206 22% 7% / 35%) 0px 10px 38px -10px, hsl(206 22% 7% / 20%) 0px 10px 20px -15px!important;
+  user-select: none;
+	transition: opacity 0.3 ease-in-out;
+  will-change: transform, opacity;
+	animation-duration: 400ms;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity;
+}
+
+.screenity-shadow-dom .hide-tooltip {
+	display: none!important;
+}
+
+.screenity-shadow-dom .tooltip-tall {
+	margin-bottom: 20px;
+}
+
+.screenity-shadow-dom .tooltip-small {
+	margin-bottom: 5px;
+}
+
+.screenity-shadow-dom .TooltipContent[data-state='delayed-open'][data-side='top'] {
+	animation-name: screenity-slideDownAndFade;
+}
+.screenity-shadow-dom .TooltipContent[data-state='delayed-open'][data-side='right'] {
+  animation-name: screenity-slideLeftAndFade;
+}
+.screenity-shadow-dom.TooltipContent[data-state='delayed-open'][data-side='bottom'] {
+  animation-name: screenity-slideUpAndFade;
+}
+.screenity-shadow-dom.TooltipContent[data-state='delayed-open'][data-side='left'] {
+  animation-name: screenity-slideRightAndFade;
+}
+
+@keyframes screenity-slideUpAndFade {
+  from { opacity: 0; transform: translateY(2px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes screenity-slideRightAndFade {
+  from { opacity: 0; transform: translateX(-2px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes screenity-slideDownAndFade {
+  from { opacity: 0; transform: translateY(-2px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes screenity-slideLeftAndFade {
+  from { opacity: 0; transform: translateX(2px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+#screenity-ui [data-radix-popper-content-wrapper] { z-index: 999999999999!important; }
+
+.screenity-shadow-dom .CanvasContainer {
+	position: fixed;
+	pointer-events: all!important;
+	top: 0px!important;
+	left: 0px!important;
+	z-index: 99999999999!important;
+}
+.screenity-shadow-dom .canvas {
+	position: fixed;
+	top: 0px!important;
+	left: 0px!important;
+	z-index: 99999999999!important;
+	background: transparent!important;
+}
+.screenity-shadow-dom .canvas-container {
+	top: 0px!important;
+	left: 0px!important;
+	z-index: 99999999999;
+	position: fixed!important;
+	background: transparent!important;
+}
+
+.ScreenityDropdownMenuContent {
+	z-index: 99999999999!important;
+  min-width: 200px;
+  background-color: white;
+  margin-top: 4px;
+  margin-right: 8px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  border-radius: 15px;
+  font-family: 'Satoshi-Medium', sans-serif;
+  color: #29292F;
+  box-shadow: 0px 10px 38px -10px rgba(22, 23, 24, 0.35),
+    0px 10px 20px -15px rgba(22, 23, 24, 0.2);
+  animation-duration: 400ms;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity;
+}
+.ScreenityDropdownMenuContent[data-side="top"] {
+  animation-name: screenity-slideDownAndFade;
+}
+.ScreenityDropdownMenuContent[data-side="right"] {
+  animation-name: screenity-slideLeftAndFade;
+}
+.ScreenityDropdownMenuContent[data-side="bottom"] {
+  animation-name: screenity-slideUpAndFade;
+}
+.ScreenityDropdownMenuContent[data-side="left"] {
+  animation-name: screenity-slideRightAndFade;
+}
+.ScreenityItemIndicator {
+  position: absolute;
+  right: 12px;
+  width: 18px;
+  height: 18px;
+  background: #3080F8;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.ScreenityDropdownMenuItem,
+.ScreenityDropdownMenuRadioItem {
+  font-size: 14px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  height: 40px;
+  padding: 0 5px;
+  position: relative;
+  padding-left: 22px;
+  padding-right: 22px;
+  user-select: none;
+  outline: none;
+}
+.ScreenityDropdownMenuItem:hover {
+    background-color: #F6F7FB !important;
+    cursor: pointer;
+}
+.ScreenityDropdownMenuItem[data-disabled] {
+  color: #6E7684 !important;
+  cursor: not-allowed;
+  background-color: #F6F7FB !important;
+}
+
+</style></div></div></body></html>
